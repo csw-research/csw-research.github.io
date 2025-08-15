@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chisondi S. Warioba, PhD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #8C1515;
+            --secondary-color: #2E2D29;
+            --accent-color: #007C92;
+            --text-color: #333;
+            --bg-light: #F9F9F9;
+            --bg-white: #FFFFFF;
+            --border-color: #E0E0E0;
+            --highlight-color: #FFF3CD;
+        }
+        
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 1.2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        nav li {
+            margin: 0 1.5rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        nav a:hover::after,
+        nav a.active::after {
+            transform: scaleX(1);
+        }
+        
+        nav a:hover,
+        nav a.active {
+            color: var(--primary-color);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 60px;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .profile-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .profile-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            animation: slideInRight 1s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: slideInRight 1.2s ease-out;
+        }
+        
+        .affiliation {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            animation: slideInRight 1.4s ease-out;
+        }
+        
+        .contact-info {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            animation: slideInRight 1.6s ease-out;
+        }
+        
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            color: var(--primary-color);
+        }
+        
+        .contact-info svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            animation: fadeIn 1.8s ease-out;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 60px 0;
+            background: var(--bg-white);
+            margin-bottom: 2px;
+        }
+        
+        section:nth-child(even) {
+            background: var(--bg-light);
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+        }
+        
+        /* Research Section */
+        .research-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .research-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .research-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        /* Publications */
+        .publication {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--bg-white);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .publication:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+        
+        .publication-title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .publication-authors {
+            color: #666;
+            margin-bottom: 0.3rem;
+        }
+        
+        .publication-journal {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+        
+        /* Awards Section */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .award-item {
+            background: var(--bg-white);
+            color: var(--text-color);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .award-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .award-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .award-year {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .award-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-category {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .skill-tag {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .skill-tag:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .profile-image {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                padding: 1rem 0;
+            }
+            
+            nav li {
+                margin: 0 0.8rem;
+            }
+            
+            .awards-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Selection Color */
+        ::selection {
+            background: var(--highlight-color);
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <ul>
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#awards">Awards</a></li>
+            <li><a href="#teaching">Teaching</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#cv">CV</a></li>
+        </ul>
+    </nav>
+    
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div>
+                    <img src="headshot.jpg" alt="Chisondi S. Warioba" class="profile-image">
+                </div>
+                <div class="hero-text">
+                    <h1>Chisondi S. Warioba, PhD</h1>
+                    <div class="title">T32 Postdoctoral Scholar</div>
+                    <div class="affiliation">Stanford University School of Medicine<br>
+                        Department of Anesthesiology, Perioperative and Pain Medicine<br>
+                        Division of Pain Medicine</div>
+                    <div class="contact-info">
+                        <a href="mailto:cwarioba@stanford.edu">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            cwarioba@stanford.edu
+                        </a>
+                        <a href="tel:+14086053991">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                            </svg>
+                            +1 (408) 605-3991
+                        </a>
+                    </div>
+                    <div class="social-links" style="display: flex; gap: 1.5rem; margin-top: 1rem; animation: slideInRight 1.8s ease-out;">
+                        <a href="https://www.linkedin.com/in/chisondi-warioba-a3125b158" target="_blank" title="LinkedIn">
+                            <svg fill="currentColor" viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="https://orcid.org/0000-0002-4266-2673" target="_blank" title="ORCID">
+                            <svg fill="currentColor" viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                                <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.516.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/>
+                            </svg>
+                        </a>
+                        <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank" title="Google Scholar">
+                            <svg fill="currentColor" viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                                <path d="M12 24a7 7 0 110-14 7 7 0 010 14zm0-24L0 9.5l4.838 3.94A8 8 0 0112 9a8 8 0 017.162 4.44L24 9.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="bio">
+                        I am a T32 Postdoctoral Scholar at Stanford University School of Medicine, specializing in developing machine learning algorithms and computational approaches for high-dimensional neuroimaging data analysis. My research focuses on investigating brain biomarkers in pain studies through innovative computational methods and cross-species translational approaches. With a unique interdisciplinary background spanning medical physics, chemistry, biology, and computational neuroscience, I am passionate about advancing our understanding of neural mechanisms in pain and stroke through cutting-edge neuroimaging and machine learning techniques.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="research">
+        <div class="container">
+            <h2>Research Interests</h2>
+            <div class="research-areas">
+                <div class="research-card">
+                    <h3>Neuroimaging & Machine Learning</h3>
+                    <p>Developing advanced machine learning algorithms for analyzing high-dimensional neuroimaging data, including fMRI, DTI, and multimodal imaging integration to identify brain biomarkers.</p>
+                </div>
+                <div class="research-card">
+                    <h3>Pain Neuroscience</h3>
+                    <p>Investigating neural mechanisms underlying pain processing through computational approaches, working with both human and animal models to understand pain biomarkers and therapeutic responses.</p>
+                </div>
+                <div class="research-card">
+                    <h3>Stroke & Cerebrovascular Research</h3>
+                    <p>Cross-species mapping of functional connectivity alterations in hyper-acute ischemic stroke, focusing on therapeutic responses and brain network integrity preservation.</p>
+                </div>
+                <div class="research-card">
+                    <h3>Translational Neuroscience</h3>
+                    <p>Bridging basic science and clinical applications through collaborative neuroimaging approaches, developing computational pipelines for complex datasets across multiple imaging modalities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="publications">
+        <div class="container">
+            <h2>Selected Publications</h2>
+            
+            <div class="publication">
+                <div class="publication-title">Flow Augmentation Therapies Preserve Brain Network Integrity and Hemodynamics in a Canine Permanent Occlusion Model</div>
+                <div class="publication-authors"><strong>C.S. Warioba</strong>, T.J. Carroll, G. Christoforidis</div>
+                <div class="publication-journal">Nature Scientific Reports, 14:16871, 2024</div>
+            </div>
+            
+            <div class="publication">
+                <div class="publication-title">Efficacy Assessment of Cerebral Perfusion Augmentation Through Functional Connectivity in an Acute Canine Stroke Model</div>
+                <div class="publication-authors"><strong>C.S. Warioba</strong>, M. Liu, S. Penano, S. Foxley, G.A. Christoforidis, T.J. Carroll</div>
+                <div class="publication-journal">American Journal of Neuroradiology, 45(9):1214-1219, 2024</div>
+            </div>
+            
+            <div class="publication">
+                <div class="publication-title">Computational Study on the Role of Zn(II) Z-Type Ligands in Facilitating Diaryl Reductive Elimination from Pt(II)</div>
+                <div class="publication-authors"><strong>C.S. Warioba</strong>, L.G. Jackson, M.A. Neal, B.E. Haines</div>
+                <div class="publication-journal">Organometallics, 42(16), 2023</div>
+            </div>
+            
+            <div class="publication">
+                <div class="publication-title">Segregation Surfaces</div>
+                <div class="publication-authors">D.J. Hunter, <strong>C. Warioba</strong></div>
+                <div class="publication-journal">Mathematics Magazine, 94(3):163, 2021 (Carl B. Allendoerfer Award)</div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="awards">
+        <div class="container">
+            <h2>Awards & Honors</h2>
+            <div class="awards-grid">
+                <div class="award-item">
+                    <h3>NSF Graduate Research Fellowship</h3>
+                    <div class="award-year">2023-2025</div>
+                    <p>Prestigious national fellowship supporting innovative research in medical physics</p>
+                </div>
+                <div class="award-item">
+                    <h3>Carl B. Allendoerfer Award</h3>
+                    <div class="award-year">2022</div>
+                    <p>Mathematics Association of America national award for exceptional mathematical exposition</p>
+                </div>
+                <div class="award-item">
+                    <h3>Academic Visitor Award</h3>
+                    <div class="award-year">2023-2024</div>
+                    <p>University of Oxford, Department of Clinical Neurosciences</p>
+                </div>
+                <div class="award-item">
+                    <h3>Dave Dolan Award</h3>
+                    <div class="award-year">2021</div>
+                    <p>Westmont College - Recognition for leadership in social and spiritual needs</p>
+                </div>
+                <div class="award-item">
+                    <h3>NSF Quantum Foundry Fellowship</h3>
+                    <div class="award-year">2020</div>
+                    <p>Support for research in photonic integrated circuits and atomic physics</p>
+                </div>
+                <div class="award-item">
+                    <h3>IMSD Fellowship</h3>
+                    <div class="award-year">2021</div>
+                    <p>Initiative for Maximizing Student Development, University of Chicago</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="teaching">
+        <div class="container">
+            <h2>Teaching Experience</h2>
+            <div class="research-card">
+                <h3>Teaching Assistant - University of Chicago</h3>
+                <p><strong>Department of Radiology (2021-2023)</strong></p>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                    <li>Interactions of Ionizing Radiation with Matter (Fall 2021, Fall 2022)</li>
+                    <li>Physics of Medical Imaging II (Spring 2022, Spring 2023)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="skills">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">MATLAB</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">C++</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Machine Learning</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">scikit-learn</span>
+                        <span class="skill-tag">Deep Learning</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Neuroimaging</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">fMRI Analysis</span>
+                        <span class="skill-tag">DTI</span>
+                        <span class="skill-tag">SPM</span>
+                        <span class="skill-tag">FSL</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Statistics</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">ICA</span>
+                        <span class="skill-tag">Time Series</span>
+                        <span class="skill-tag">Mixed Models</span>
+                        <span class="skill-tag">ANOVA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="cv">
+        <div class="container">
+            <h2>Curriculum Vitae</h2>
+            <p style="font-size: 1.1rem; margin-top: 1rem;">
+                For a complete list of publications, presentations, and professional activities, please 
+                <a href="Warioba_CV.pdf" download style="color: var(--accent-color); font-weight: 600;">download my full CV (PDF)</a>.
+            </p>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Chisondi S. Warioba, PhD. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Stanford University School of Medicine</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scrolling and active navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Update active class
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Update active section on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Add shadow to navbar on scroll
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.2s';
+                    entry.target.style.animation = 'fadeInSection 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.research-card, .publication, .award-item, .skill-category').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
